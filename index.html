@@ -2,10 +2,118 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8">
-  <title>合同会社セーフティ・デザイン</title>
+  <title>セーフティ・デザイン</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    :root {
+      --bg: #f7fbff;
+      --text: #0f172a;
+      --subtle: #475569;
+      --accent: #2563eb;
+      --border: #e5e7eb;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        "Hiragino Sans",
+        "Hiragino Kaku Gothic ProN",
+        "Noto Sans JP",
+        Meiryo,
+        sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .hero {
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(24px, 4vw, 40px);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      margin: 0;
+    }
+
+    .divider {
+      margin: 64px 0 32px;
+      border-top: 1px solid var(--border);
+    }
+
+    .company {
+      font-size: 20px;
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    .business {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .business li {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 15px;
+      color: var(--subtle);
+    }
+
+    footer {
+      margin-top: 64px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--subtle);
+    }
+
+    @media (max-width: 600px) {
+      .hero {
+        min-height: 50vh;
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <h1>合同会社セーフティ・デザイン</h1>
-  <p>公式サイト（準備中）</p>
+  <div class="wrap">
+    <section class="hero">
+      <h1>次の災害を、みんなで生き延びるために</h1>
+    </section>
+
+    <div class="divider"></div>
+
+    <section>
+      <div class="company">セーフティ・デザイン</div>
+      <ul class="business">
+        <li>防災啓発コンテンツの制作</li>
+        <li>防災YouTube・X・TikTok等の運営</li>
+        <li>障がい者防災に関する取り組み</li>
+        <li>防災イベントの企画・開催</li>
+      </ul>
+    </section>
+
+    <footer>
+      © Safety Design 2023
+    </footer>
+  </div>
 </body>
 </html>
