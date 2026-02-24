@@ -7,12 +7,11 @@
 
 <style>
 /* =========================
-   Reset
+   Reset / Base
 ========================= */
 * { box-sizing: border-box; }
-html, body {
-  margin: 0;
-  padding: 0;
+html, body { margin: 0; padding: 0; }
+body {
   font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
   background: #ffffff;
   color: #0a1a33;
@@ -20,90 +19,128 @@ html, body {
 
 /* =========================
    HERO
+   - ベースは濃い青（黒ではない）
+   - 動きは「誰が見ても分かる」レベル
 ========================= */
 .hero {
   position: relative;
-  height: min(70vh, 520px);
-  min-height: 360px;
+  height: min(64vh, 460px);     /* 縦長すぎ防止 */
+  min-height: 340px;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: #061a3a; /* 濃い青ベース（必ず文字が読める） */
+
+  /* 黒に見えない「濃い青」ベース */
+  background: #0b2a7a;
 }
 
-/* 動きのある多層グラデーション */
-.hero::before,
-.hero::after {
-  content: "";
+/* レイヤーは 3 層：明確に動く */
+.hero .layer {
   position: absolute;
-  inset: -40%;
+  inset: -35%;
   pointer-events: none;
 }
 
-/* Layer 1：大きく動く */
-.hero::before {
+/* Layer A：大きな青〜シアンの発光塊（高速で移動） */
+.hero .layer.a {
   background:
-    radial-gradient(60vw 60vw at 10% 20%, rgba(0,140,255,0.85), transparent 65%),
-    radial-gradient(70vw 70vw at 90% 30%, rgba(0,90,200,0.8), transparent 70%),
-    radial-gradient(80vw 80vw at 50% 90%, rgba(0,180,255,0.7), transparent 75%);
-  animation: driftFast 14s linear infinite;
+    radial-gradient(60vw 55vw at 20% 25%, rgba(0, 210, 255, 0.80), transparent 62%),
+    radial-gradient(70vw 65vw at 85% 35%, rgba(70, 120, 255, 0.78), transparent 66%),
+    radial-gradient(60vw 60vw at 55% 85%, rgba(0, 160, 255, 0.65), transparent 70%);
+  mix-blend-mode: screen;
+  filter: blur(6px);
+  opacity: 0.95;
+  animation: moveA 7.5s linear infinite;
 }
 
-/* Layer 2：逆方向・遅延 */
-.hero::after {
+/* Layer B：逆方向に走る帯（動きが一瞬で分かる） */
+.hero .layer.b {
   background:
-    radial-gradient(50vw 50vw at 80% 80%, rgba(0,120,220,0.6), transparent 70%),
-    radial-gradient(60vw 60vw at 20% 70%, rgba(0,70,160,0.65), transparent 75%);
-  animation: driftSlow 22s linear infinite;
+    repeating-linear-gradient(
+      120deg,
+      rgba(255,255,255,0.00) 0px,
+      rgba(255,255,255,0.00) 24px,
+      rgba(255,255,255,0.12) 34px,
+      rgba(255,255,255,0.00) 52px
+    );
+  opacity: 0.55;
+  transform: rotate(-8deg);
+  animation: moveB 2.8s linear infinite;
 }
 
-/* 明確に「動いている」と分かるレベル */
-@keyframes driftFast {
-  0%   { transform: translate(-12%, -8%) rotate(0deg); }
-  50%  { transform: translate(10%, 6%) rotate(2deg); }
-  100% { transform: translate(-12%, -8%) rotate(0deg); }
+/* Layer C：コンセントリックな渦（位相ズレで“流体”感） */
+.hero .layer.c {
+  background:
+    conic-gradient(
+      from 180deg at 50% 50%,
+      rgba(0,255,255,0.55),
+      rgba(80,140,255,0.50),
+      rgba(0,180,255,0.55),
+      rgba(120,200,255,0.45),
+      rgba(0,255,255,0.55)
+    );
+  mix-blend-mode: overlay;
+  filter: blur(18px);
+  opacity: 0.55;
+  animation: moveC 5.5s ease-in-out infinite alternate;
 }
 
-@keyframes driftSlow {
-  0%   { transform: translate(10%, 12%) rotate(0deg); }
-  50%  { transform: translate(-8%, -10%) rotate(-2deg); }
-  100% { transform: translate(10%, 12%) rotate(0deg); }
+/* “止まって見えない”動き：振幅を大きく、周期を短めに */
+@keyframes moveA {
+  0%   { transform: translate(-18%, -10%) rotate(0deg) scale(1.00); }
+  50%  { transform: translate(14%,  12%) rotate(5deg) scale(1.06); }
+  100% { transform: translate(-18%, -10%) rotate(0deg) scale(1.00); }
 }
 
-/* =========================
-   HERO CONTENT
-========================= */
+@keyframes moveB {
+  0%   { transform: translate(-22%, -8%) rotate(-10deg); }
+  100% { transform: translate(22%,  8%) rotate(-10deg); }
+}
+
+@keyframes moveC {
+  0%   { transform: translate(8%, -10%) rotate(-18deg) scale(1.05); }
+  100% { transform: translate(-10%, 10%) rotate(18deg) scale(1.12); }
+}
+
+/* ヘッダー文字 */
 .hero-inner {
   position: relative;
   z-index: 2;
-  padding: 0 20px;
+  padding: 0 18px;
 }
 
 .company {
-  font-size: clamp(34px, 7vw, 72px);
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  line-height: 1.15;
-  white-space: nowrap;
+  font-size: clamp(30px, 6.6vw, 72px);
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  line-height: 1.12;
   color: #ffffff;
+
+  /* SPで収まる（改行事故を防ぐための実用設定）
+     1行固定ではなく「収まること優先」。 */
+  max-width: min(92vw, 880px);
+  margin: 0 auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .tagline {
-  margin-top: 16px;
-  font-size: clamp(14px, 3.8vw, 18px);
+  margin-top: 12px;
+  font-size: clamp(13px, 3.6vw, 18px);
   letter-spacing: 0.08em;
-  color: rgba(255,255,255,0.85);
+  color: rgba(255,255,255,0.88);
 }
 
 /* =========================
-   MAIN
+   Main
 ========================= */
 .section {
   max-width: 900px;
   margin: 0 auto;
-  padding: 72px 24px 96px;
+  padding: 64px 24px 96px;
   text-align: center;
 }
 
@@ -125,23 +162,25 @@ html, body {
   border-bottom: 1px solid rgba(0,0,0,0.08);
 }
 
+.note {
+  margin-top: 52px;
+  font-size: 15px;
+  color: #4a5f88;
+}
+
 /* =========================
-   FOOTER
+   Footer
 ========================= */
 footer {
-  padding: 40px 20px 56px;
+  padding: 28px 20px 48px;
   text-align: center;
   font-size: 14px;
   color: #6b7c99;
 }
 
-/* =========================
-   SP 微調整
-========================= */
+/* SP微調整 */
 @media (max-width: 420px) {
-  .company {
-    letter-spacing: 0.04em;
-  }
+  .company { letter-spacing: 0.03em; }
 }
 </style>
 </head>
@@ -149,6 +188,10 @@ footer {
 <body>
 
 <header class="hero">
+  <div class="layer a"></div>
+  <div class="layer b"></div>
+  <div class="layer c"></div>
+
   <div class="hero-inner">
     <div class="company">セーフティ・デザイン</div>
     <div class="tagline">次の災害を、みんなで生き延びるために</div>
@@ -163,10 +206,11 @@ footer {
     <li>障がい者防災</li>
     <li>防災イベントの企画・開催</li>
   </ul>
+
+  <div class="note">ご相談は、担当者に直接ご連絡ください。</div>
 </main>
 
 <footer>
-  ご相談は、担当者に直接ご連絡ください。<br><br>
   © Safety Design 2023
 </footer>
 
