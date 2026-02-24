@@ -1,161 +1,142 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>セーフティ・デザイン</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>セーフティ・デザイン</title>
 
-  <style>
-    /* ===== Reset ===== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<style>
+/* ===== Base ===== */
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { height:100%; }
 
-    html, body {
-      height: 100%;
-    }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans",
+               "Noto Sans JP", sans-serif;
+  background:#ffffff;
+  color:#0b1a33;
+  line-height:1.8;
+}
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
-                   "Hiragino Sans", "Noto Sans JP", sans-serif;
-      color: #0a1a33;
-      background: #ffffff;
-      line-height: 1.8;
-    }
+/* ===== Hero ===== */
+.hero {
+  position:relative;
+  min-height:85vh;
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+}
 
-    /* ===== Animated Header ===== */
-    header {
-      position: relative;
-      min-height: 70vh;
-      display: flex;
-      align-items: center;
-      padding: 0 24px;
-      overflow: hidden;
-    }
+/* 動く未来的グラデーション */
+.hero::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(1200px 600px at 20% 30%, rgba(120,160,255,0.35), transparent 60%),
+    radial-gradient(1000px 500px at 80% 60%, rgba(180,200,255,0.35), transparent 65%),
+    linear-gradient(120deg, #f5f9ff, #dbe8ff, #f7fbff);
+  background-size:200% 200%;
+  animation: floatGradient 40s ease-in-out infinite;
+}
 
-    /* 動くグラデーション背景 */
-    header::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        120deg,
-        #eef5ff,
-        #dbe9ff,
-        #f7fbff
-      );
-      background-size: 200% 200%;
-      animation: gradientMove 30s ease-in-out infinite;
-      z-index: 0;
-    }
+/* 奥行きレイヤー */
+.hero::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.35), transparent 70%);
+  pointer-events:none;
+}
 
-    /* うっすら光の粒（宇宙感の代替） */
-    header::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image:
-        radial-gradient(circle at 20% 30%, rgba(120,160,255,0.12) 0, transparent 40%),
-        radial-gradient(circle at 80% 60%, rgba(180,200,255,0.10) 0, transparent 45%);
-      z-index: 0;
-    }
+@keyframes floatGradient {
+  0%   { background-position:0% 50%; }
+  50%  { background-position:100% 50%; }
+  100% { background-position:0% 50%; }
+}
 
-    @keyframes gradientMove {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+.hero-inner {
+  position:relative;
+  z-index:1;
+  max-width:1100px;
+  padding:0 32px;
+  width:100%;
+}
 
-    .header-inner {
-      position: relative;
-      z-index: 1;
-      max-width: 900px;
-      margin: 0 auto;
-      width: 100%;
-    }
+/* ===== Typography ===== */
+.company {
+  font-size:clamp(56px, 9vw, 88px);
+  font-weight:600;
+  letter-spacing:0.14em;
+}
 
-    /* ===== Typography ===== */
-    .company-name {
-      font-size: clamp(40px, 7vw, 64px);
-      font-weight: 500;
-      letter-spacing: 0.12em;
-    }
+.tagline {
+  margin-top:24px;
+  font-size:14px;
+  letter-spacing:0.06em;
+  opacity:0.8;
+}
 
-    .tagline {
-      margin-top: 28px;
-      font-size: 14px;
-      letter-spacing: 0.04em;
-      opacity: 0.85;
-    }
+/* ===== Content ===== */
+main {
+  max-width:900px;
+  margin:0 auto;
+  padding:120px 32px 0;
+}
 
-    /* ===== Main Content ===== */
-    main {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 120px 24px 0;
-    }
+.business {
+  list-style:none;
+}
 
-    .business {
-      list-style: none;
-      max-width: 520px;
-    }
+.business li {
+  font-size:16px;
+  padding:32px 0;
+  border-bottom:1px solid rgba(0,40,120,0.12);
+}
 
-    .business li {
-      padding: 26px 0;
-      font-size: 15px;
-      letter-spacing: 0.03em;
-      border-bottom: 1px solid rgba(0, 40, 120, 0.08);
-    }
+.business li:last-child {
+  border-bottom:none;
+}
 
-    .business li:last-child {
-      border-bottom: none;
-    }
+/* ===== Footer ===== */
+footer {
+  max-width:900px;
+  margin:140px auto 32px;
+  padding:0 32px;
+  font-size:12px;
+  opacity:0.6;
+}
 
-    footer {
-      margin: 140px auto 32px;
-      max-width: 900px;
-      padding: 0 24px;
-      font-size: 12px;
-      letter-spacing: 0.04em;
-      opacity: 0.6;
-    }
-
-    /* ===== Responsive ===== */
-    @media (max-width: 600px) {
-      header {
-        min-height: 60vh;
-      }
-
-      main {
-        padding-top: 96px;
-      }
-    }
-  </style>
+/* ===== Responsive ===== */
+@media (max-width:600px) {
+  .hero { min-height:75vh; }
+  main { padding-top:96px; }
+}
+</style>
 </head>
 
 <body>
-  <header>
-    <div class="header-inner">
-      <h1 class="company-name">セーフティ・デザイン</h1>
-      <p class="tagline">
-        次の災害を、みんなで生き延びるために
-      </p>
-    </div>
-  </header>
 
-  <main>
-    <ul class="business">
-      <li>防災啓発コンテンツの制作</li>
-      <li>防災YouTube・X・TikTok等の運営</li>
-      <li>障がい者防災</li>
-      <li>防災イベントの企画・開催</li>
-    </ul>
-  </main>
+<header class="hero">
+  <div class="hero-inner">
+    <h1 class="company">セーフティ・デザイン</h1>
+    <p class="tagline">次の災害を、みんなで生き延びるために</p>
+  </div>
+</header>
 
-  <footer>
-    © Safety Design 2023
-  </footer>
+<main>
+  <ul class="business">
+    <li>防災啓発コンテンツの制作</li>
+    <li>防災YouTube・X・TikTok等の運営</li>
+    <li>障がい者防災</li>
+    <li>防災イベントの企画・開催</li>
+  </ul>
+</main>
+
+<footer>
+  © Safety Design 2023
+</footer>
+
 </body>
 </html>
