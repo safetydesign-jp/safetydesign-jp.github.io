@@ -1,115 +1,118 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <title>セーフティ・デザイン</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Safety Design</title>
 
   <style>
-    :root {
-      --bg: #f7fbff;
-      --text: #0f172a;
-      --subtle: #475569;
-      --accent: #2563eb;
-      --border: #e5e7eb;
-    }
-
+    /* ===== Reset ===== */
     * {
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
     }
 
+    html, body {
+      height: 100%;
+    }
+
     body {
-      margin: 0;
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        "Hiragino Sans",
-        "Hiragino Kaku Gothic ProN",
-        "Noto Sans JP",
-        Meiryo,
-        sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                   "Hiragino Sans", "Noto Sans JP", sans-serif;
+      color: #0a1a33;
+      background:
+        radial-gradient(
+          1200px 600px at 20% 10%,
+          #eaf2ff 0%,
+          #f7fbff 45%,
+          #ffffff 100%
+        );
+      line-height: 1.8;
     }
 
-    .wrap {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 24px;
-    }
-
-    .hero {
-      min-height: 60vh;
+    /* ===== Layout ===== */
+    .container {
+      min-height: 100%;
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 64px 24px 32px;
+      max-width: 900px;
+      margin: 0 auto;
     }
 
-    .hero h1 {
-      font-size: clamp(24px, 4vw, 40px);
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      margin: 0;
+    main {
+      margin-top: 12vh;
     }
 
-    .divider {
-      margin: 64px 0 32px;
-      border-top: 1px solid var(--border);
-    }
-
-    .company {
-      font-size: 20px;
+    /* ===== Typography ===== */
+    .company-name {
+      font-size: clamp(36px, 6vw, 56px);
       font-weight: 500;
-      margin-bottom: 16px;
+      letter-spacing: 0.08em;
+    }
+
+    .tagline {
+      margin-top: 28px;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      opacity: 0.85;
     }
 
     .business {
+      margin-top: 96px;
       list-style: none;
-      padding: 0;
-      margin: 0;
+      max-width: 520px;
     }
 
     .business li {
-      padding: 12px 0;
-      border-bottom: 1px solid var(--border);
+      padding: 22px 0;
       font-size: 15px;
-      color: var(--subtle);
+      letter-spacing: 0.03em;
+      border-bottom: 1px solid rgba(0, 40, 120, 0.08);
+    }
+
+    .business li:last-child {
+      border-bottom: none;
     }
 
     footer {
-      margin-top: 64px;
-      padding-top: 24px;
-      border-top: 1px solid var(--border);
-      font-size: 13px;
-      color: var(--subtle);
+      margin-top: 120px;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      opacity: 0.6;
     }
 
+    /* ===== Responsive ===== */
     @media (max-width: 600px) {
-      .hero {
-        min-height: 50vh;
+      main {
+        margin-top: 10vh;
+      }
+
+      .business {
+        margin-top: 72px;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
-    <section class="hero">
-      <h1>次の災害を、みんなで生き延びるために</h1>
-    </section>
+  <div class="container">
+    <main>
+      <h1 class="company-name">Safety Design</h1>
 
-    <div class="divider"></div>
+      <p class="tagline">
+        次の災害を、みんなで生き延びるために
+      </p>
 
-    <section>
-      <div class="company">セーフティ・デザイン</div>
       <ul class="business">
         <li>防災啓発コンテンツの制作</li>
         <li>防災YouTube・X・TikTok等の運営</li>
-        <li>障がい者防災に関する取り組み</li>
+        <li>障がい者防災</li>
         <li>防災イベントの企画・開催</li>
       </ul>
-    </section>
+    </main>
 
     <footer>
       © Safety Design 2023
